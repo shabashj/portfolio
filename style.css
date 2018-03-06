@@ -1,0 +1,19 @@
+body {
+    background-color: black;
+}
+
+p , div, span, h1, h2, h3{
+    color: white;
+    font-family: monospace;
+}
+
+.blinking {
+    animation: blinker 1s linear infinite;
+    color: white;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
