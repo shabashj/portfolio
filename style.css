@@ -2,7 +2,7 @@ body {
     background-color: black;
 }
 
-p , div, span, h1, h2, h3{
+p , div, h1, h2, h3{
     color: white;
     font-family: monospace;
 }

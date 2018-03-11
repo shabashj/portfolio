@@ -1,36 +1,41 @@
 $(function() {
 
+    const PRINT_DELAY = 50;
     var continueKey = 'Tap on screen';
     var isPrinting;
     var c = 0;
     var lineCharsNum = 0;
-
-    if (!isMobile()) {
-        continueKey = 'Press Enter';
-    }
-    //var allText = [`Wellcome to Evgeni's profile. \n ${continueKey} to continue.`];
+    var delayedPrint;
     var allText = [`1 Lorem ipsum dolor \n sed do eiusmod tempor`,
         `2 Lorem ipsum dolor \n sed do eiusmod tempor`,
         `3 Lorem ipsum dolor \n sed do eiusmod tempor`,
         `4 Lorem ipsum dolor \n sed do eiusmod tempor`
     ];
-    allText = allText.reverse();
 
-    var nLineElem = document.createElement('span');
-    nLineElem.innerHTML = '_';
-    $(nLineElem).addClass('blinking');
-    $('body').prepend(nLineElem);
-
-    $(document).keypress(function(e) {
-        if (isPrinting) {
-            return;
-        }
-        if (e.which === 13) {
-            printNextLine(allText.pop());
-        }
-    });
-
+    if (!isMobile()) {
+        continueKey = 'Press Enter';
+    }
     printNextLine(`Wellcome to Evgeni's profile. \n ${continueKey} to continue.`);
+    prepareText();
+    setKeysListeners();
+
+
+
+    function prepareText() {
+	allText = allText.reverse();
+    }
+
+    function setKeysListeners() {
+        $(document).keypress(function(e) {
+            if (isPrinting) {
+                return;
+            }
+            if (e.which === 13) {
+                $('#wellcome_id').remove();
+                printNextLine(allText.pop());
+            }
+        });
+    }
 
     function printNextLine(currText) {
         console.log('print next line');
@@ -52,27 +57,46 @@ $(function() {
     }
 
     function printLine(line) {
-        var nLineElem = document.createElement('h2');
-        $('body').last().before(nLineElem);
+        var newDiv = createNewLineElement();
+        removeBlinker();
+
+        var lineElem = document.createElement('span');
 
         for (var i = 0; i < line.length; i++) {
+            $(newDiv).append(lineElem);
+
             (function(i) {
-                setTimeout(function() {
-                    nLineElem.innerHTML = nLineElem.innerHTML + line[i];
+                delayedPrint = setTimeout(function() {
+                    lineElem.innerHTML = lineElem.innerHTML + line[i];
 
                     lineCharsNum--;
 
                     if (lineCharsNum === 0) {
                         isPrinting = false;
+                        addBlinker(newDiv);
                     }
-                }, c++ * 100);
+                }, c++ * PRINT_DELAY);
             })(i);
         }
-        //setTimeout(function() {
-        //    if (c === lineCharsNum) {
-        //        isPrinting = false;
-        //    }
-        //}, c++ * 100);
+    }
+
+    function createNewLineElement() {
+        var newDiv = document.createElement('DIV');
+        $(newDiv).addClass('newLine');
+        $('body').append(newDiv);
+        return newDiv;
+    }
+
+
+    function addBlinker(newDiv) {
+        var blinkElem = document.createElement('span');
+        $(blinkElem).addClass('blinking');
+        blinkElem.innerHTML = '_';
+        $(newDiv).append(blinkElem);
+    }
+
+    function removeBlinker() {
+        $('.blinking').remove();
     }
 });
 
@@ -83,29 +107,3 @@ function isMobile() {
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
 };
-
-/**
-var logStyle = {
-    h1: 'color: red; font-size: 22px;',
-    h3: 'color: red; font-size: 18px;',
-    p: 'color: blue; font-size: 14px;',
-};
-
-console.log('%c Hi! My name is Evgeni and this is my profile.',
-    logStyle.h1);
-console.log('%c Type "Help" for instructions.', logStyle.h3);
-
-
-window.help = window.Help =
-    'For more information about me type "Profile"'
-window.Profile = window.profile =
-    'Front End Developer - Video Units team \n' +
-    '- Executed and contributed to client side of the Video ads, with an emphasis on front end features, browser manipulation, and cross-browser compatibility. \n' +
-    '- Maintaining and adding features to the Taboola Video Ads Studio. \n' +
-    '- Developed and design internal tools for the Video group at Taboola. \n' +
-    '- Developed and contributed to the E2E automation infrastructure of the Video ads. \n' +
-    '- Workflow tools included: JS(+ES6), HTML, CSS, SASS, Bootstrap, jQuery, Backbone, Angular 1.x, NightwatchJS, Grunt and Git. \n' +
-    '- Constant communication with other teams such as Backend, Product and Support. \n';
-
-
-    */
