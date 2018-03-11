@@ -6,12 +6,12 @@ $(function() {
     var c = 0;
     var lineCharsNum = 0;
     var delayedPrint;
-    var allText = [`2016 up today I work in Taboola as Frontend Developer. I did: `,
+    var allText = [`From 2016 till today I work in Taboola as Frontend Developer. I did: `,
         `- Executed and contributed to client side of the Video ads, with an emphasis on front end features, \n browser manipulation, and cross-browser compatibility. `,
-        `- Maintaining and adding features to the Taboola Video Ads Studio. `,
-        `- Developed and design internal tools for the Video group at Taboola.`,
+        `- Maintaining and adding features to the Taboola Video Ads Studio.  `,
+        `- Developed and design internal tools for the Video group at Taboola. `,
         `- Developed and contributed to the E2E automation infrastructure of the Video ads. `,
-        `- Workflow tools included: JS(+ES6), HTML, CSS, SASS, Bootstrap, jQuery, Backbone, Angular 1.x, NightwatchJS, Grunt and Git.`,
+        `- Workflow tools included: JS(+ES6), HTML, CSS, SASS, Bootstrap, jQuery, Backbone, Angular 1.x, NightwatchJS, Grunt and Git. `,
         `- Constant communication with other teams such as Backend, Product and Support. `
     ];
 
@@ -23,21 +23,23 @@ $(function() {
     setKeysListeners();
 
 
-
     function prepareText() {
         allText = allText.reverse();
     }
 
     function setKeysListeners() {
-        $(document).keypress(function(e) {
-            if (isPrinting) {
-                return;
-            }
-            if (e.which === 13) {
-                $('#wellcome_id').remove();
-                printNextLine(allText.pop());
-            }
-        });
+        $(document).keypress(onKeyboardEventHandler);
+        $(document).on('touchend', onKeyboardEventHandler);
+    }
+
+    function onKeyboardEventHandler(e) {
+        if (isPrinting) {
+            return;
+        }
+        if (e.which === 13 || e.type === 'touchend') {
+            $('#wellcome_id').remove();
+            printNextLine(allText.pop());
+        }
     }
 
     function printNextLine(currText) {
@@ -86,7 +88,6 @@ $(function() {
 
     function createNewLineElement() {
         var newDiv = document.createElement('DIV');
-        //        $(newDiv).addClass('newLine');
         $('body').append(newDiv);
         return newDiv;
     }
