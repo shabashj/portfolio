@@ -16,6 +16,11 @@ $(function() {
     ];
     allText = allText.reverse();
 
+    var nLineElem = document.createElement('span');
+    nLineElem.innerHTML = '_';
+    $(nLineElem).addClass('blinking');
+    $('body').prepend(nLineElem);
+
     $(document).keypress(function(e) {
         if (isPrinting) {
             return;
@@ -48,7 +53,7 @@ $(function() {
 
     function printLine(line) {
         var nLineElem = document.createElement('h2');
-        $('body').append(nLineElem);
+        $('body').last().before(nLineElem);
 
         for (var i = 0; i < line.length; i++) {
             (function(i) {

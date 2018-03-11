@@ -10,6 +10,7 @@ p , div, span, h1, h2, h3{
 .blinking {
     animation: blinker 1s linear infinite;
     color: white;
+    font-size: 20px;
 }
 
 @keyframes blinker {
