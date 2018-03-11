@@ -1,23 +1,52 @@
 $(function() {
 
-    var continueKey = 'on screen';
+    var continueKey = 'Tap on screen';
+    var isPrinting;
+    var c = 0;
+    var lineCharsNum = 0;
 
     if (!isMobile()) {
-        continueKey = 'Enter';
+        continueKey = 'Press Enter';
     }
-    var allText = [`Wellcome to Evgeni's profile. \n Press ${continueKey} to continue.`];
+    //var allText = [`Wellcome to Evgeni's profile. \n ${continueKey} to continue.`];
+    var allText = [`1 Lorem ipsum dolor \n sed do eiusmod tempor`,
+        `2 Lorem ipsum dolor \n sed do eiusmod tempor`,
+        `3 Lorem ipsum dolor \n sed do eiusmod tempor`,
+        `4 Lorem ipsum dolor \n sed do eiusmod tempor`
+    ];
+    allText = allText.reverse();
 
-    allText.forEach(function(output) {
-        var lines = output.split('\n');
-
-        lines.forEach(function(line) {
-            printLine(line);
-        });
+    $(document).keypress(function(e) {
+        if (isPrinting) {
+            return;
+        }
+        if (e.which === 13) {
+            printNextLine(allText.pop());
+        }
     });
 
-    function printLine(line) {
+    printNextLine(`Wellcome to Evgeni's profile. \n ${continueKey} to continue.`);
 
-        var c = 0;
+    function printNextLine(currText) {
+        console.log('print next line');
+
+        isPrinting = true;
+        c = lineCharsNum = 0;
+
+        if (currText) {
+            var lines = currText.split('\n');
+
+            lines.forEach(function(line) {
+                lineCharsNum = lineCharsNum + line.length;
+            });
+
+            lines.forEach(function(line) {
+                printLine(line);
+            });
+        }
+    }
+
+    function printLine(line) {
         var nLineElem = document.createElement('h2');
         $('body').append(nLineElem);
 
@@ -25,20 +54,20 @@ $(function() {
             (function(i) {
                 setTimeout(function() {
                     nLineElem.innerHTML = nLineElem.innerHTML + line[i];
+
+                    lineCharsNum--;
+
+                    if (lineCharsNum === 0) {
+                        isPrinting = false;
+                    }
                 }, c++ * 100);
             })(i);
         }
-    }
-
-    function enterHandle(event) {
-        if (event.key === 13) {
-            printNextLine();
-        }
-    }
-    document.addEvenetListener('keypress', enterHandle);
-
-    function printNextLine(line) {
-        //TODO 	
+        //setTimeout(function() {
+        //    if (c === lineCharsNum) {
+        //        isPrinting = false;
+        //    }
+        //}, c++ * 100);
     }
 });
 
