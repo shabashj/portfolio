@@ -2,15 +2,16 @@ body {
     background-color: black;
 }
 
-p , div, h1, h2, h3{
+.line{
     color: white;
     font-family: monospace;
+    font-size: 16px;
 }
 
 .blinking {
     animation: blinker 1s linear infinite;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 @keyframes blinker {

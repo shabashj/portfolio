@@ -6,23 +6,26 @@ $(function() {
     var c = 0;
     var lineCharsNum = 0;
     var delayedPrint;
-    var allText = [`1 Lorem ipsum dolor \n sed do eiusmod tempor`,
-        `2 Lorem ipsum dolor \n sed do eiusmod tempor`,
-        `3 Lorem ipsum dolor \n sed do eiusmod tempor`,
-        `4 Lorem ipsum dolor \n sed do eiusmod tempor`
+    var allText = [`2016 up today I work in Taboola as Frontend Developer. I did: `,
+        `- Executed and contributed to client side of the Video ads, with an emphasis on front end features, \n browser manipulation, and cross-browser compatibility. `,
+        `- Maintaining and adding features to the Taboola Video Ads Studio. `,
+        `- Developed and design internal tools for the Video group at Taboola.`,
+        `- Developed and contributed to the E2E automation infrastructure of the Video ads. `,
+        `- Workflow tools included: JS(+ES6), HTML, CSS, SASS, Bootstrap, jQuery, Backbone, Angular 1.x, NightwatchJS, Grunt and Git.`,
+        `- Constant communication with other teams such as Backend, Product and Support. `
     ];
 
     if (!isMobile()) {
         continueKey = 'Press Enter';
     }
-    printNextLine(`Wellcome to Evgeni's profile. \n ${continueKey} to continue.`);
+    printNextLine(`Wellcome to Evgeni's profile.  ${continueKey} to continue. `);
     prepareText();
     setKeysListeners();
 
 
 
     function prepareText() {
-	allText = allText.reverse();
+        allText = allText.reverse();
     }
 
     function setKeysListeners() {
@@ -61,6 +64,7 @@ $(function() {
         removeBlinker();
 
         var lineElem = document.createElement('span');
+        $(lineElem).addClass('line');
 
         for (var i = 0; i < line.length; i++) {
             $(newDiv).append(lineElem);
@@ -82,7 +86,7 @@ $(function() {
 
     function createNewLineElement() {
         var newDiv = document.createElement('DIV');
-        $(newDiv).addClass('newLine');
+        //        $(newDiv).addClass('newLine');
         $('body').append(newDiv);
         return newDiv;
     }
