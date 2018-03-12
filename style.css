@@ -3,14 +3,14 @@ body {
 }
 
 .line{
-    color: white;
+    color: #07f607;
     font-family: monospace;
     font-size: 16px;
 }
 
 .blinking {
     animation: blinker 1s linear infinite;
-    color: white;
+    color: #07f607;
     font-size: 16px;
 }
 
@@ -18,4 +18,18 @@ body {
     50% {
         opacity: 0;
     }
+}
+
+.buttons{
+    position: absolute;
+    bottom: 7px;
+    left: 7px;
+}
+
+#skipButton, #restartButton {
+    padding: 2px 4px 2px 4px;
+    background-color: #07f607;
+    color: black;
+    font-size: 16px;
+    font-family: monospace;
 }
