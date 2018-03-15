@@ -45,7 +45,7 @@ $(function () {
         });
 
         lines.forEach(function (line) {
-            var newDiv = createNewLineElement();
+            var newDiv = createAndAppendNewLineElement();
             $(newDiv).addClass('welcome');
 
             var lineElem = document.createElement('span');
@@ -71,7 +71,10 @@ $(function () {
         $(document).on('touchend', onKeyboardEventHandler);
         $('#skipButton').click(function () {
             skipAll();
-        })
+        });
+        $('#restartButton').click(function () {
+            restart();
+        });
     }
 
     function onKeyboardEventHandler(e) {
@@ -104,7 +107,7 @@ $(function () {
     }
 
     function printLine(line) {
-        var newDiv = createNewLineElement();
+        var newDiv = createAndAppendNewLineElement();
         removeBlinker();
 
         var lineElem = document.createElement('span');
@@ -130,10 +133,10 @@ $(function () {
         }
     }
 
-    function createNewLineElement() {
+    function createAndAppendNewLineElement() {
         var newDiv = document.createElement('DIV');
         $(newDiv).addClass('newLine');
-        $('body').append(newDiv);
+        $('.container').append(newDiv);
         return newDiv;
     }
 
@@ -149,6 +152,7 @@ $(function () {
     }
 
     function skipAll() {
+        console.log('skipp all');
         var fullText = initText.slice(0);
 
         clearTimeout(delayedPrint);
@@ -160,16 +164,17 @@ $(function () {
             printLineNormal(lineStr);
         });
         addBlinker($('line').last());
-        console.log('skipp all');
     }
 
     function restart() {
         console.log('restart');
+        clearTimeout(delayedPrint);
+        $('.container').empty();
+        start(initText);
     }
 
-
     function printLineNormal(line) {
-        var newDiv = createNewLineElement();
+        var newDiv = createAndAppendNewLineElement();
         removeBlinker();
 
         var lineElem = document.createElement('span');
