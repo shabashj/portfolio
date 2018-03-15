@@ -17,7 +17,6 @@ $(function () {
     var lineCharsNum = 0;
     var delayedPrint;
     var runText = [];
-    var audio = new Audio('morse.mp3');
 
     if (!isMobile()) {
         continueKey = 'press Enter';
@@ -67,7 +66,7 @@ $(function () {
     }
 
     function setKeysListeners() {
-        $(document).keypress(onKeyboardEventHandler);
+        $(document).on('keypress', onKeyboardEventHandler);
         $(document).on('touchend', onKeyboardEventHandler);
         $('#skipButton').click(function () {
             skipAll();
@@ -130,6 +129,7 @@ $(function () {
         if (lineCharsNum === 0) {
             isPrinting = false;
             addBlinker(newDiv);
+            scrollToBottom();
         }
     }
 
@@ -164,6 +164,8 @@ $(function () {
             printLineNormal(lineStr);
         });
         addBlinker($('line').last());
+        removeListeners();
+        scrollToBottom();
     }
 
     function restart() {
@@ -182,9 +184,17 @@ $(function () {
 
         for (var i = 0; i < line.length; i++) {
             $(newDiv).append(lineElem);
-            //audio.play();
             insertCharIntoLine(lineElem, newDiv, line[i]);
         }
+    }
+
+    function removeListeners() {
+        $(document).off('keypress', onKeyboardEventHandler);
+        $(document).off('touchend', onKeyboardEventHandler);
+    }
+    
+    function scrollToBottom() {
+        window.scrollTo(0, document.body.scrollHeight);
     }
 });
 
