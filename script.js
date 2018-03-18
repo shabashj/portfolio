@@ -2,14 +2,26 @@
 
 $(function () {
 
-    const initText = [`From 2016 till today I work in Taboola as Frontend Developer. `,
-        `- Executed and contributed to client side of the Video ads, with an emphasis on front end features, browser manipulation, and cross-browser compatibility. `,
-        `- Maintaining and adding features to the Taboola Video Ads Studio.  `,
-        `- Developed and design internal tools for the Video group at Taboola. `,
-        `- Developed and contributed to the E2E automation infrastructure of the Video ads. `,
-        `- Workflow tools included: JS(+ES6), HTML, CSS, SASS, Bootstrap, jQuery, Backbone, Angular 1.x, NightwatchJS, Grunt and Git. `,
-        `- Constant communication with other teams such as Backend, Product and Support. `
+    const initText = [`Hi, I'm Evgeni and I specialize in Frontend Development.`,
+        `Besides having good ping pong and code-debugging skills\n
+I follow popular frontend trends.\n 
+I’m proficient in browser manipulation,\n 
+cross-browser compatibility responsive design and in my free time\n 
+I play with new web frameworks and tools.\n 
+Of course there’s more:\n`,
+        `Core Skills: HTML, CSS, Javascript and JQuery.\n
+CSS Tools: SASS, LESS and Bootstrap\n
+Javascript: ES6 (2015/16/17), lodash\n
+Frameworks: Backbone, Angular 1.6, React, Redux, SAPUI5\n
+Automation: NightwatchJS, Karma, Mocha, Chai, QUnit\n
+Build Tools: Grunt, Webpack, NPM\n
+Currently exploring: Rx.js, Vue.js, Server side with Node and Express`,
+        `Where I worked:\n
+Taboola: Since 2016 Executed and contributed to client side of the Video ads as FE developer.\n
+SAP: 2014-2016 Contributed to WYSIWYG tool which is part of WebIDE as FE developer.\n
+Previous life: Developed for number of enterprises as SAP ABAP Developer`
     ];
+
     const PRINT_DELAY = 50;
     var continueKey = 'tap on screen';
     var isPrinting;
@@ -33,15 +45,11 @@ $(function () {
     }
 
     function printWelcome() {
-
         isPrinting = true;
-        c = lineCharsNum = 0;
-
+        c = 0;
         var lines = wellcomeText.split('\n');
 
-        lines.forEach(function (line) {
-            lineCharsNum = lineCharsNum + line.length;
-        });
+        lineCharsNum = countCharsInBlock(lines);
 
         lines.forEach(function (line) {
             var newDiv = createAndAppendNewLineElement();
@@ -87,21 +95,17 @@ $(function () {
     }
 
     function printNextLine(currText) {
-        console.log('print next line');
-
         isPrinting = true;
-        c = lineCharsNum = 0;
-
+        c = 0;
         if (currText) {
             var lines = currText.split('\n');
-
-            lines.forEach(function (line) {
-                lineCharsNum = lineCharsNum + line.length;
-            });
+            lines = clearEmptyLines(lines);
+            lineCharsNum = countCharsInBlock(lines);
 
             lines.forEach(function (line) {
                 printLine(line);
             });
+            $('.container').append('<br>');
         }
     }
 
@@ -114,7 +118,6 @@ $(function () {
 
         for (var i = 0; i < line.length; i++) {
             $(newDiv).append(lineElem);
-            //audio.play();
 
             (function (i) {
                 delayedPrint = setTimeout(insertCharIntoLine.bind(this, lineElem, newDiv, line[i]),
@@ -153,7 +156,7 @@ $(function () {
 
     function skipAll() {
         console.log('skipp all');
-        var fullText = initText.slice(0);
+        let fullText = initText.slice(0);
 
         clearTimeout(delayedPrint);
 
@@ -175,24 +178,45 @@ $(function () {
         start(initText);
     }
 
-    function printLineNormal(line) {
-        var newDiv = createAndAppendNewLineElement();
+    function countCharsInBlock(lines) {
+        let lineCharsNum = 0;
+        lines.forEach(function (line) {
+            lineCharsNum = lineCharsNum + line.length;
+        });
+        return lineCharsNum;
+    }
+
+    function clearEmptyLines(lines) {
+        return lines.filter(function (val) {
+            if (val.trim()) return val;
+        });
+    }
+
+    function printLineNormal(allLine) {
         removeBlinker();
 
-        var lineElem = document.createElement('span');
-        $(lineElem).addClass('line');
+        let lines = allLine.split('\n');
+        lines = clearEmptyLines(lines);
+        var lineCharsNum = countCharsInBlock(lines);
 
-        for (var i = 0; i < line.length; i++) {
-            $(newDiv).append(lineElem);
-            insertCharIntoLine(lineElem, newDiv, line[i]);
-        }
+        lines.forEach(function (line) {
+            let newDiv = createAndAppendNewLineElement();
+            let lineElem = document.createElement('span');
+            $(lineElem).addClass('line');
+
+            for (let i = 0; i < line.length; i++) {
+                $(newDiv).append(lineElem);
+                insertCharIntoLine(lineElem, newDiv, line[i]);
+            }
+        });
+        $('.container').append('<br>');
     }
 
     function removeListeners() {
         $(document).off('keypress', onKeyboardEventHandler);
         $(document).off('touchend', onKeyboardEventHandler);
     }
-    
+
     function scrollToBottom() {
         window.scrollTo(0, document.body.scrollHeight);
     }
