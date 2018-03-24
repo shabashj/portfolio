@@ -1,5 +1,6 @@
 "use strict";
-var $ = require('jquery');
+const $ = require('jquery');
+const css = require('./style.scss');
 
 
 $(document).ready(function () {
@@ -165,7 +166,8 @@ Previous life: Developed for number of enterprises as SAP ABAP Developer`
         fullText.forEach(function (lineStr) {
             printLineNormal(lineStr);
         });
-        addBlinker($('line').last());
+        var lastChar = $('.newLine .line').last();
+        addBlinker(lastChar);
         removeListeners();
         scrollToBottom();
     }

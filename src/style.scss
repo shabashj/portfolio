@@ -61,15 +61,15 @@ body {
 }
 
 .blinking {
-    animation: blinker 1s linear infinite;
-    color: #07f607;
-    font-size: 16px;
+  animation: blinker 1s linear infinite;
+  color: #07f607;
+  font-size: 16px;
 }
 
 @keyframes blinker {
-    50% {
-        opacity: 0;
-    }
+  50% {
+    opacity: 0;
+  }
 }
 
 .buttons {
@@ -77,12 +77,12 @@ body {
     bottom: 0;
     left: 0;
     padding: 0 5px 20px 15px;
-}
 
-#skipButton, #restartButton {
-    padding: 2px 4px 2px 4px;
-    background-color: #07f607;
-    color: black;
-    font-size: 16px;
-    font-family: monospace;
+    #skipButton, #restartButton {
+      padding: 2px 4px 2px 4px;
+      background-color: #07f607;
+      color: black;
+      font-size: 16px;
+      font-family: monospace;
+    }
 }
