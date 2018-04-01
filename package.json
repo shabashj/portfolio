@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "profile",
   "main": "src/index.js",
+  "homepage": "https://shabashj.github.io/portfolio",
   "scripts": {
     "build": "webpack --progress --mode production",
-    "watch": "webpack --progress --watch --mode production",
-    "server": "webpack-dev-server --open --mode development"
+    "watch": "webpack --progress --watch --mode development",
+    "server": "webpack-dev-server --open --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [
     "profile"
@@ -14,16 +17,17 @@
   "author": "Me",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.3.1",
+    "gh-pages": "^1.1.0",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
-    "node-sass": "^4.8.3",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.1.0",
+    "node-sass": "^4.9.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "webpack": "^4.1.1",
