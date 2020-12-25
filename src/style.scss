@@ -78,11 +78,15 @@ body {
     left: 0;
     padding: 0 5px 20px 15px;
 
-    #skipButton, #restartButton {
+    .button {
       padding: 2px 4px 2px 4px;
       background-color: #07f607;
       color: black;
       font-size: 16px;
       font-family: monospace;
+    }
+
+    a {
+      text-decoration: none;
     }
 }
