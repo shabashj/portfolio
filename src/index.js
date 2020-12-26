@@ -14,8 +14,8 @@ and follow popular frontend trends.
 Of course there’s more:\n`,
         `Core Skills: HTML, CSS, Javascript and JQuery.\n
 CSS Tools: SASS, LESS and Bootstrap\n
-Javascript: Vanilla, ES6 (2015/16/17), lodash\n
-Frameworks: Backbone, Angular 1.6\n
+Javascript: ES5, ES6 (2015/16/17), lodash\n
+Frameworks: React, Angular 1.6, Backbone\n
 Automation: NightwatchJS, Karma, Mocha, Chai, QUnit\n
 Build Tools: Grunt, Webpack, NPM, Git\n
 Studying: Rx.js, Vue.js, Node, Express and others.`,
